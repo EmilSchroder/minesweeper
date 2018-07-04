@@ -3,28 +3,31 @@ document.addEventListener('DOMContentLoaded', startGame)
 // Define your `board` object here!
   var board = {
     cells: [
-      {row:0,col:0,isMine:false,hidden:1},
-      {row:0,col:1,isMine:false,hidden:1},
-      {row:0,col:2,isMine:true,hidden:1},
-      {row:1,col:0,isMine:false,hidden:1},
-      {row:1,col:1,isMine:false,hidden:1},
-      {row:1,col:2,isMine:true,hidden:1},
-      {row:2,col:0,isMine:false,hidden:1},
-      {row:2,col:1,isMine:true,hidden:1},
-      {row:2,col:2,isMine:false,hidden:1}
+      {row:0,col:0,isMine:false,hidden:true},
+      {row:0,col:1,isMine:false,hidden:true},
+      {row:0,col:2,isMine:true,hidden:true},
+      {row:1,col:0,isMine:false,hidden:true},
+      {row:1,col:1,isMine:false,hidden:true},
+      {row:1,col:2,isMine:true,hidden:true},
+      {row:2,col:0,isMine:false,hidden:true},
+      {row:2,col:1,isMine:true,hidden:true},
+      {row:2,col:2,isMine:false,hidden:true}
     ]
   };
 
 
 function startGame () {
   for (var i=0; i<board.cells.length;i++){
-    console.log(board.cells[i].row + " and " + board.cells[i].col);
+    //console.log(board.cells[i].row + " and " + board.cells[i].col);
     var number = countSurroundingMines(board.cells[i]);
     board.cells[i].surroundingMines = number;
-
   }
   // Don't remove this function call: it makes the game work!
   lib.initBoard()
+
+  //Win conditions
+  document.addEventListener("click", checkForWin);
+  document.addEventListener("contextmenu", checkForWin);
 }
 
 // Define this function to look for a win condition:
@@ -33,9 +36,32 @@ function startGame () {
 // 2. Are all of the mines marked?
 function checkForWin () {
 
+    var maxMines = 3;
+    var maxNoMines = 6;
+
+  for (var k=0; k<board.cells.length;k++){
+
+
+    var t = board.cells[k];
+    if (t.isMine==true && t.isMarked==true){
+      maxMines--;
+      if (maxMines==0){
+      lib.displayMessage('You win!');
+      }
+    } else if (t.isMine==false && t.hidden==false){
+      maxNoMines--;
+      if (maxNoMines==0){
+        lib.displayMessage('You win!');
+      }
+    }
+
+  }
+   /* lib.displayMessage('You win!')
+  }*/
+
   // You can use this function call to declare a winner (once you've
   // detected that they've won, that is!)
-  //   lib.displayMessage('You win!')
+  //   
 }
 
 // Define this function to count the number of mines around the cell
