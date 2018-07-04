@@ -36,28 +36,29 @@ function startGame () {
 // 2. Are all of the mines marked?
 function checkForWin () {
 
-    var maxMines = 3;
-    var maxNoMines = 6;
+    var cellNum = 9;
 
   for (var k=0; k<board.cells.length;k++){
 
 
     var t = board.cells[k];
-    if (t.isMine==true && t.isMarked==true){
-      maxMines--;
-      if (maxMines==0){
+
+
+     if (t.isMine==true && t.isMarked==true){
+      cellNum--;
+      if (cellNum==0){
       lib.displayMessage('You win!');
       }
     } else if (t.isMine==false && t.hidden==false){
-      maxNoMines--;
-      if (maxNoMines==0){
+      cellNum--;
+      if (cellNum==0){
         lib.displayMessage('You win!');
       }
     }
 
   }
-   /* lib.displayMessage('You win!')
-  }*/
+   //lib.displayMessage('You win!')
+  //}
 
   // You can use this function call to declare a winner (once you've
   // detected that they've won, that is!)
