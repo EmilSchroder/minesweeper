@@ -89,6 +89,8 @@ function checkForWin () {
     } else if (t.isMine==false && t.hidden==false){
       cellNum--;
       if (cellNum==0){
+        var audio = document.getElementsByClassName('winner')[0];
+        audio.play();
         lib.displayMessage('You win!');
       }
     }
